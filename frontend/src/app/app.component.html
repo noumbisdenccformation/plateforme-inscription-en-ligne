@@ -1,2 +1,8 @@
-<app-stepper [currentStep]="1"></app-stepper>
-<app-personal-info></app-personal-info>
+<app-stepper [currentStep]="currentStep"></app-stepper>
+
+<div [ngSwitch]="currentStep">
+   <app-personal-info *ngSwitchCase="1" (nextStep)="goToNextStep()"></app-personal-info> 
+  <app-official-documents *ngSwitchCase="2"></app-official-documents>
+  <app-academic-info *ngSwitchCase="3"></app-academic-info>
+  <app-contact-info *ngSwitchCase="4"></app-contact-info>
+  </div>

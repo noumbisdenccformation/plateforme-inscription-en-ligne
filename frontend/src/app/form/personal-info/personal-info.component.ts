@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core'; 
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
   styleUrls: ['./personal-info.component.css']
 })
 export class PersonalInfoComponent implements OnInit {
+  @Output() nextStep = new EventEmitter<void>(); // 
+
   personalInfoForm!: FormGroup;
 
   constructor(private fb: FormBuilder) { }
@@ -43,8 +45,7 @@ export class PersonalInfoComponent implements OnInit {
 
   onSubmit(): void {
     if (this.personalInfoForm.valid) {
-      console.log('Formulaire valide !', this.personalInfoForm.value);
-      // Logique pour passer à l'étape suivante
+             this.nextStep.emit(); // <-- Emettez l'événement
     } else {
       console.log('Formulaire invalide.');
     }
