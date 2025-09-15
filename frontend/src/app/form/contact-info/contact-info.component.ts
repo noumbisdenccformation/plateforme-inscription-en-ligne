@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AutoSaveService } from '../../services/autosave.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-contact-info',
@@ -11,7 +13,7 @@ export class ContactInfoComponent implements OnInit {
 
   contactForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private autoSave: AutoSaveService) {}
 
   ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
@@ -23,10 +25,12 @@ export class ContactInfoComponent implements OnInit {
       emergencyPhone: ['', Validators.required]
     });
 
-    const cached = localStorage.getItem('step_contact');
+    const cached = this.autoSave.load<any>('step_contact');
     if (cached) {
-      try { this.contactForm.patchValue(JSON.parse(cached)); } catch {}
+      this.contactForm.patchValue(cached);
     }
+
+    this.contactForm.valueChanges.pipe(debounceTime(300)).subscribe(v => this.autoSave.save('step_contact', v));
   }
 
   onSubmit(): void {
@@ -38,7 +42,7 @@ export class ContactInfoComponent implements OnInit {
       this.contactForm.get('emailConfirm')?.setErrors({ mismatch: true });
       return;
     }
-    localStorage.setItem('step_contact', JSON.stringify(this.contactForm.value));
+    this.autoSave.save('step_contact', this.contactForm.value);
     this.nextStep.emit();
   }
 }

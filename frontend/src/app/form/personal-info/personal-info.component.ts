@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core'; 
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AutoSaveService } from '../../services/autosave.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-personal-info',
@@ -11,7 +13,7 @@ export class PersonalInfoComponent implements OnInit {
 
   personalInfoForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private autoSave: AutoSaveService) { }
 
   ngOnInit(): void {
     this.personalInfoForm = this.fb.group({
@@ -22,10 +24,14 @@ export class PersonalInfoComponent implements OnInit {
       nationalite: ['', Validators.required]
     });
 
-    const cached = localStorage.getItem('step_personal');
+    const cached = this.autoSave.load<any>('step_personal');
     if (cached) {
-      try { this.personalInfoForm.patchValue(JSON.parse(cached)); } catch {}
+      this.personalInfoForm.patchValue(cached);
     }
+
+    this.personalInfoForm.valueChanges.pipe(debounceTime(300)).subscribe(val => {
+      this.autoSave.save('step_personal', val);
+    });
   }
 
   // Validateur personnalisé pour l'âge
@@ -44,13 +50,13 @@ export class PersonalInfoComponent implements OnInit {
         age--;
       }
 
-      return age >= minAge ? null : { minAge: true };
+        return age >= minAge ? null : { minAge: true };
     };
   }
 
   onSubmit(): void {
     if (this.personalInfoForm.valid) {
-      localStorage.setItem('step_personal', JSON.stringify(this.personalInfoForm.value));
+      this.autoSave.save('step_personal', this.personalInfoForm.value);
       this.nextStep.emit(); // <-- Emettez l'événement
     } else {
       console.log('Formulaire invalide.');

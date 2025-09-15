@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AutoSaveService } from '../../services/autosave.service';
+import { debounceTime } from 'rxjs';
 
 interface FilePreview {
   file: File | null;
@@ -23,7 +25,7 @@ export class OfficialDocumentsComponent implements OnInit {
   birthCertPreview: FilePreview = { file: null, url: null };
   photoPreview: FilePreview = { file: null, url: null };
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private autoSave: AutoSaveService) {}
 
   ngOnInit(): void {
     this.documentsForm = this.formBuilder.group({
@@ -35,13 +37,12 @@ export class OfficialDocumentsComponent implements OnInit {
       identityPhoto: [null, [Validators.required]]
     });
 
-    const cached = localStorage.getItem('step_documents');
+    const cached = this.autoSave.load<any>('step_documents');
     if (cached) {
-      try {
-        const parsed = JSON.parse(cached);
-        this.documentsForm.patchValue(parsed);
-      } catch {}
+      this.documentsForm.patchValue(cached);
     }
+
+    this.documentsForm.valueChanges.pipe(debounceTime(300)).subscribe(v => this.autoSave.save('step_documents', v));
   }
 
   onFileSelected(event: Event, controlName: string, acceptImagesOnly: boolean = false, acceptPdfOnly: boolean = false): void {
@@ -107,7 +108,7 @@ export class OfficialDocumentsComponent implements OnInit {
       this.documentsForm.markAllAsTouched();
       return;
     }
-    localStorage.setItem('step_documents', JSON.stringify(this.documentsForm.value));
+    this.autoSave.save('step_documents', this.documentsForm.value);
     this.nextStep.emit();
   }
 }
