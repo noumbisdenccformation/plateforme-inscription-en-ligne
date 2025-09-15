@@ -1,10 +1,1 @@
-<app-toast-container></app-toast-container>
-<app-stepper [currentStep]="currentStep"></app-stepper>
-
-<div [ngSwitch]="currentStep">
-  <app-personal-info *ngSwitchCase="1" (nextStep)="goToNextStep()"></app-personal-info>
-  <app-official-documents *ngSwitchCase="2" (nextStep)="goToNextStep()"></app-official-documents>
-  <app-academic-info *ngSwitchCase="3" (nextStep)="goToNextStep()"></app-academic-info>
-  <app-contact-info *ngSwitchCase="4" (nextStep)="goToNextStep()"></app-contact-info>
-  <app-recap-payment *ngSwitchCase="5"></app-recap-payment>
-</div>
+<router-outlet></router-outlet>

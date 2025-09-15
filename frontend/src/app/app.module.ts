@@ -9,6 +9,10 @@ import { ContactInfoComponent } from './form/contact-info/contact-info.component
 import { StepperComponent } from './stepper/stepper.component'; 
 import { RecapPaymentComponent } from './form/recap-payment/recap-payment.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { AppRoutingModule } from './app-routing.module';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -19,11 +23,15 @@ import { ToastComponent } from './components/toast/toast.component';
     ContactInfoComponent, 
     StepperComponent,
     RecapPaymentComponent,
-    ToastComponent
+    ToastComponent,
+    LandingPageComponent,
+    LoginPageComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
