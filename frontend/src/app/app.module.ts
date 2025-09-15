@@ -8,6 +8,7 @@ import { AcademicInfoComponent } from './form/academic-info/academic-info.compon
 import { ContactInfoComponent } from './form/contact-info/contact-info.component'; 
 import { StepperComponent } from './stepper/stepper.component'; 
 import { RecapPaymentComponent } from './form/recap-payment/recap-payment.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RecapPaymentComponent } from './form/recap-payment/recap-payment.compon
     AcademicInfoComponent, 
     ContactInfoComponent, 
     StepperComponent,
-    RecapPaymentComponent
+    RecapPaymentComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
