@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { DossiersComponent } from './admin/dossiers/dossiers.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { RegistrationComponent } from './registration/registration.component';
     ToastComponent,
     LandingPageComponent,
     LoginPageComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    DashboardComponent,
+    DossiersComponent
   ],
   imports: [
     BrowserModule,

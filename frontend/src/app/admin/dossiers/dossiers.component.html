@@ -1,0 +1,29 @@
+<section style="padding:16px">
+  <h2>Gestion des dossiers</h2>
+  <table border="1" cellspacing="0" cellpadding="6">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Candidat</th>
+        <th>Complétude</th>
+        <th>État</th>
+        <th>Déposé le</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of items">
+        <td>{{ d.id }}</td>
+        <td>{{ d.candidat }}</td>
+        <td>{{ d.completude }}%</td>
+        <td>{{ d.etat }}</td>
+        <td>{{ d.deposeLe | date:'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:12px; display:flex; gap:8px; align-items:center">
+    <button (click)="prev()" [disabled]="page===1">Précédent</button>
+    <span>Page {{ page }}</span>
+    <button (click)="next()" [disabled]="page * pageSize >= total">Suivant</button>
+  </div>
+</section> 

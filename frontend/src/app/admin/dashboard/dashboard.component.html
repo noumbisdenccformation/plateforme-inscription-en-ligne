@@ -1,0 +1,19 @@
+<section style="padding:16px">
+  <h2>Admin Dashboard</h2>
+  <div style="display:flex; gap:12px; margin:12px 0">
+    <div>Total inscriptions: {{ stats?.totalInscriptions }}</div>
+    <div>En attente: {{ stats?.pending }}</div>
+    <div>Validées: {{ stats?.approved }}</div>
+    <div>Rejetées: {{ stats?.rejected }}</div>
+  </div>
+
+  <h3>Taux de complétion par étape</h3>
+  <ol>
+    <li *ngFor="let v of stats?.completionByStep; let i = index">Étape {{ i + 1 }}: {{ v }}%</li>
+  </ol>
+
+  <h3>Carte thermique (simplifiée)</h3>
+  <ul>
+    <li *ngFor="let d of heatmap">{{ d.day }}: {{ d.value }}</li>
+  </ul>
+</section> 
