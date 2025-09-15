@@ -1,0 +1,25 @@
+<h2>Section 3: Parcours Académique</h2>
+<form [formGroup]="academicForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="lastSchool">Dernier établissement fréquenté</label>
+    <input id="lastSchool" type="text" formControlName="lastSchool" placeholder="Ex: Lycée Général..." />
+  </div>
+
+  <div>
+    <label for="specialization">Spécialisation</label>
+    <input id="specialization" type="text" formControlName="specialization" placeholder="Ex: Mathématiques" />
+  </div>
+
+  <div>
+    <label for="periodStart">Début</label>
+    <input id="periodStart" type="date" formControlName="periodStart" />
+  </div>
+
+  <div>
+    <label for="periodEnd">Fin</label>
+    <input id="periodEnd" type="date" formControlName="periodEnd" />
+    <p *ngIf="academicForm.get('periodEnd')?.errors?.['dateOrder']">La date de fin doit être postérieure au début.</p>
+  </div>
+
+  <button type="submit" [disabled]="academicForm.invalid">Suivant</button>
+</form>

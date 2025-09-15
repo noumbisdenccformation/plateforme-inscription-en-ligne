@@ -7,6 +7,7 @@ import { OfficialDocumentsComponent } from './form/official-documents/official-d
 import { AcademicInfoComponent } from './form/academic-info/academic-info.component'; 
 import { ContactInfoComponent } from './form/contact-info/contact-info.component'; 
 import { StepperComponent } from './stepper/stepper.component'; 
+import { RecapPaymentComponent } from './form/recap-payment/recap-payment.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { StepperComponent } from './stepper/stepper.component';
     OfficialDocumentsComponent, 
     AcademicInfoComponent, 
     ContactInfoComponent, 
-    StepperComponent
+    StepperComponent,
+    RecapPaymentComponent
   ],
   imports: [
     BrowserModule,

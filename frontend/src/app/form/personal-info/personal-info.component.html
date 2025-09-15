@@ -1,34 +1,31 @@
 <h2>Section 1: Informations Personnelles</h2>
-<form>
-    <h2>Section 1: Informations Personnelles</h2>
-<form>
+<form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="nom">Nom :</label>
-      <input type="text" id="nom" formControlName="nom" placeholder="Votre nom">
-      <p *ngIf="personalInfoForm.get('nom')?.invalid && personalInfoForm.get('nom')?.touched" class="error-message">
+    <input type="text" id="nom" formControlName="nom" placeholder="Votre nom">
+    <p *ngIf="personalInfoForm.get('nom')?.invalid && personalInfoForm.get('nom')?.touched" class="error-message">
       Le nom doit contenir uniquement des lettres de l'alphabet.
     </p>
   </div>
 
   <div>
     <label for="prenom">Prénom(s) :</label>
-     <input type="text" id="prenom" formControlName="prenom" placeholder="Vos prénoms">
-     <p *ngIf="personalInfoForm.get('prenom')?.invalid && personalInfoForm.get('prenom')?.touched" class="error-message">
+    <input type="text" id="prenom" formControlName="prenom" placeholder="Vos prénoms">
+    <p *ngIf="personalInfoForm.get('prenom')?.invalid && personalInfoForm.get('prenom')?.touched" class="error-message">
       Le prénom est requis.
     </p>
-
   </div>
 
   <div>
     <label>Sexe :</label>
-    <label><input type="radio" name="sexe" value="M"> Masculin</label>
-    <label><input type="radio" name="sexe" value="F"> Féminin</label>
-    <label><input type="radio" name="sexe" value="Non-binaire"> Non-binaire</label>
+    <label><input type="radio" formControlName="sexe" value="M"> Masculin</label>
+    <label><input type="radio" formControlName="sexe" value="F"> Féminin</label>
+    <label><input type="radio" formControlName="sexe" value="Non-binaire"> Non-binaire</label>
   </div>
 
   <div>
     <label for="dateNaissance">Date de naissance :</label>
-    <input type="date" id="dateNaissance" name="dateNaissance" required>
+    <input type="date" id="dateNaissance" formControlName="dateNaissance" required>
     <p *ngIf="personalInfoForm.get('dateNaissance')?.invalid && personalInfoForm.get('dateNaissance')?.touched" class="error-message">
       Vous devez avoir au moins 16 ans pour vous inscrire.
     </p>
@@ -40,11 +37,10 @@
       <option value="">-- Sélectionnez --</option>
       <option value="cameroon">Cameroun</option>
       <option value="france">France</option>
-      <option value="Burkinabe">Burkinabé</option>
-      <option value="Maii">Mali</option>
+      <option value="burkina">Burkinabé</option>
+      <option value="mali">Mali</option>
     </select>
   </div>
 
   <button type="submit" [disabled]="personalInfoForm.invalid">Suivant</button>
 </form>
-  </form>

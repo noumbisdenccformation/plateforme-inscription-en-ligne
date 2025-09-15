@@ -21,6 +21,11 @@ export class PersonalInfoComponent implements OnInit {
       dateNaissance: ['', [Validators.required, this.minAgeValidator(16)]], // Validation: âge minimum 16 ans
       nationalite: ['', Validators.required]
     });
+
+    const cached = localStorage.getItem('step_personal');
+    if (cached) {
+      try { this.personalInfoForm.patchValue(JSON.parse(cached)); } catch {}
+    }
   }
 
   // Validateur personnalisé pour l'âge
@@ -45,9 +50,11 @@ export class PersonalInfoComponent implements OnInit {
 
   onSubmit(): void {
     if (this.personalInfoForm.valid) {
-             this.nextStep.emit(); // <-- Emettez l'événement
+      localStorage.setItem('step_personal', JSON.stringify(this.personalInfoForm.value));
+      this.nextStep.emit(); // <-- Emettez l'événement
     } else {
       console.log('Formulaire invalide.');
+      this.personalInfoForm.markAllAsTouched();
     }
   }
 }

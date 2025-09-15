@@ -11,7 +11,7 @@ export class AppComponent {
 
   // Méthode pour passer à l'étape suivante
   goToNextStep(): void {
-    [cite_start]if (this.currentStep < 5) { // Le formulaire a 5 étapes [cite: 4]
+    if (this.currentStep < 5) {
       this.currentStep++;
     }
   }

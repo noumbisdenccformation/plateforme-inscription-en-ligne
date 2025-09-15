@@ -1,0 +1,28 @@
+<h2>Étape 5: Récapitulatif & Paiement</h2>
+<div *ngIf="!submitted; else doneTpl">
+  <section>
+    <h3>Informations personnelles</h3>
+    <pre>{{ personal | json }}</pre>
+  </section>
+
+  <section>
+    <h3>Documents</h3>
+    <pre>{{ documents | json }}</pre>
+  </section>
+
+  <section>
+    <h3>Parcours académique</h3>
+    <pre>{{ academic | json }}</pre>
+  </section>
+
+  <section>
+    <h3>Coordonnées</h3>
+    <pre>{{ contact | json }}</pre>
+  </section>
+
+  <button (click)="submitAll()">Soumettre</button>
+</div>
+
+<ng-template #doneTpl>
+  <p>Votre dossier a été soumis. Un email de confirmation vous sera envoyé.</p>
+</ng-template> 

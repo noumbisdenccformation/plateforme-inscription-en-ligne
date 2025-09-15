@@ -1,0 +1,39 @@
+<h2>Section 2: Documents Officiels</h2>
+<form [formGroup]="documentsForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="diploma">Diplôme (PDF, max 5Mo)</label>
+    <input id="diploma" type="file" accept="application/pdf" (change)="onFileSelected($event, 'diploma', false, true)">
+    <p *ngIf="documentsForm.get('diploma')?.errors?.['mime']">Format requis: PDF</p>
+    <p *ngIf="documentsForm.get('diploma')?.errors?.['size']">Fichier trop volumineux</p>
+  </div>
+
+  <div>
+    <label for="baccalaureat">Baccalauréat (PDF, max 5Mo)</label>
+    <input id="baccalaureat" type="file" accept="application/pdf" (change)="onFileSelected($event, 'baccalaureat', false, true)">
+  </div>
+
+  <div>
+    <label for="cniRecto">CNI Recto (JPG/PNG)</label>
+    <input id="cniRecto" type="file" accept="image/*" (change)="onFileSelected($event, 'cniRecto', true)">
+    <img *ngIf="cniRectoPreview.url" [src]="cniRectoPreview.url" alt="Aperçu CNI Recto" style="max-width: 160px; display:block; margin-top:8px;" />
+  </div>
+
+  <div>
+    <label for="cniVerso">CNI Verso (JPG/PNG)</label>
+    <input id="cniVerso" type="file" accept="image/*" (change)="onFileSelected($event, 'cniVerso', true)">
+    <img *ngIf="cniVersoPreview.url" [src]="cniVersoPreview.url" alt="Aperçu CNI Verso" style="max-width: 160px; display:block; margin-top:8px;" />
+  </div>
+
+  <div>
+    <label for="birthCertificate">Acte de naissance (PDF)</label>
+    <input id="birthCertificate" type="file" accept="application/pdf" (change)="onFileSelected($event, 'birthCertificate', false, true)">
+  </div>
+
+  <div>
+    <label for="identityPhoto">Photo d'identité (JPG/PNG)</label>
+    <input id="identityPhoto" type="file" accept="image/*" (change)="onFileSelected($event, 'identityPhoto', true)">
+    <img *ngIf="photoPreview.url" [src]="photoPreview.url" alt="Photo d'identité" style="max-width: 160px; display:block; margin-top:8px;" />
+  </div>
+
+  <button type="submit" [disabled]="documentsForm.invalid">Suivant</button>
+</form>
