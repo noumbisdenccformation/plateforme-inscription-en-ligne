@@ -3,36 +3,64 @@
   <div>
     <label for="diploma">Diplôme (PDF, max 5Mo)</label>
     <input id="diploma" type="file" accept="application/pdf" (change)="onFileSelected($event, 'diploma', false, true)">
+    <p *ngIf="documentsForm.get('diploma')?.errors?.['required'] && documentsForm.get('diploma')?.touched">Ce document est requis</p>
     <p *ngIf="documentsForm.get('diploma')?.errors?.['mime']">Format requis: PDF</p>
     <p *ngIf="documentsForm.get('diploma')?.errors?.['size']">Fichier trop volumineux</p>
+    <p *ngIf="documentsForm.get('diploma')?.value">Fichier: {{ documentsForm.get('diploma')?.value }}</p>
+    <button type="button" *ngIf="documentsForm.get('diploma')?.value" (click)="clearFile('diploma')">Retirer</button>
   </div>
 
   <div>
     <label for="baccalaureat">Baccalauréat (PDF, max 5Mo)</label>
     <input id="baccalaureat" type="file" accept="application/pdf" (change)="onFileSelected($event, 'baccalaureat', false, true)">
+    <p *ngIf="documentsForm.get('baccalaureat')?.errors?.['required'] && documentsForm.get('baccalaureat')?.touched">Ce document est requis</p>
+    <p *ngIf="documentsForm.get('baccalaureat')?.errors?.['mime']">Format requis: PDF</p>
+    <p *ngIf="documentsForm.get('baccalaureat')?.errors?.['size']">Fichier trop volumineux</p>
+    <p *ngIf="documentsForm.get('baccalaureat')?.value">Fichier: {{ documentsForm.get('baccalaureat')?.value }}</p>
+    <button type="button" *ngIf="documentsForm.get('baccalaureat')?.value" (click)="clearFile('baccalaureat')">Retirer</button>
   </div>
 
   <div>
     <label for="cniRecto">CNI Recto (JPG/PNG)</label>
     <input id="cniRecto" type="file" accept="image/*" (change)="onFileSelected($event, 'cniRecto', true)">
+    <p *ngIf="documentsForm.get('cniRecto')?.errors?.['required'] && documentsForm.get('cniRecto')?.touched">Ce document est requis</p>
+    <p *ngIf="documentsForm.get('cniRecto')?.errors?.['mime']">Format requis: Image</p>
+    <p *ngIf="documentsForm.get('cniRecto')?.errors?.['size']">Fichier trop volumineux</p>
+    <p *ngIf="documentsForm.get('cniRecto')?.value">Fichier: {{ documentsForm.get('cniRecto')?.value }}</p>
     <img *ngIf="cniRectoPreview.url" [src]="cniRectoPreview.url" alt="Aperçu CNI Recto" style="max-width: 160px; display:block; margin-top:8px;" />
+    <button type="button" *ngIf="documentsForm.get('cniRecto')?.value" (click)="clearFile('cniRecto')">Retirer</button>
   </div>
 
   <div>
     <label for="cniVerso">CNI Verso (JPG/PNG)</label>
     <input id="cniVerso" type="file" accept="image/*" (change)="onFileSelected($event, 'cniVerso', true)">
+    <p *ngIf="documentsForm.get('cniVerso')?.errors?.['required'] && documentsForm.get('cniVerso')?.touched">Ce document est requis</p>
+    <p *ngIf="documentsForm.get('cniVerso')?.errors?.['mime']">Format requis: Image</p>
+    <p *ngIf="documentsForm.get('cniVerso')?.errors?.['size']">Fichier trop volumineux</p>
+    <p *ngIf="documentsForm.get('cniVerso')?.value">Fichier: {{ documentsForm.get('cniVerso')?.value }}</p>
     <img *ngIf="cniVersoPreview.url" [src]="cniVersoPreview.url" alt="Aperçu CNI Verso" style="max-width: 160px; display:block; margin-top:8px;" />
+    <button type="button" *ngIf="documentsForm.get('cniVerso')?.value" (click)="clearFile('cniVerso')">Retirer</button>
   </div>
 
   <div>
     <label for="birthCertificate">Acte de naissance (PDF)</label>
     <input id="birthCertificate" type="file" accept="application/pdf" (change)="onFileSelected($event, 'birthCertificate', false, true)">
+    <p *ngIf="documentsForm.get('birthCertificate')?.errors?.['required'] && documentsForm.get('birthCertificate')?.touched">Ce document est requis</p>
+    <p *ngIf="documentsForm.get('birthCertificate')?.errors?.['mime']">Format requis: PDF</p>
+    <p *ngIf="documentsForm.get('birthCertificate')?.errors?.['size']">Fichier trop volumineux</p>
+    <p *ngIf="documentsForm.get('birthCertificate')?.value">Fichier: {{ documentsForm.get('birthCertificate')?.value }}</p>
+    <button type="button" *ngIf="documentsForm.get('birthCertificate')?.value" (click)="clearFile('birthCertificate')">Retirer</button>
   </div>
 
   <div>
     <label for="identityPhoto">Photo d'identité (JPG/PNG)</label>
     <input id="identityPhoto" type="file" accept="image/*" (change)="onFileSelected($event, 'identityPhoto', true)">
+    <p *ngIf="documentsForm.get('identityPhoto')?.errors?.['required'] && documentsForm.get('identityPhoto')?.touched">Ce document est requis</p>
+    <p *ngIf="documentsForm.get('identityPhoto')?.errors?.['mime']">Format requis: Image</p>
+    <p *ngIf="documentsForm.get('identityPhoto')?.errors?.['size']">Fichier trop volumineux</p>
+    <p *ngIf="documentsForm.get('identityPhoto')?.value">Fichier: {{ documentsForm.get('identityPhoto')?.value }}</p>
     <img *ngIf="photoPreview.url" [src]="photoPreview.url" alt="Photo d'identité" style="max-width: 160px; display:block; margin-top:8px;" />
+    <button type="button" *ngIf="documentsForm.get('identityPhoto')?.value" (click)="clearFile('identityPhoto')">Retirer</button>
   </div>
 
   <button type="submit" [disabled]="documentsForm.invalid">Suivant</button>

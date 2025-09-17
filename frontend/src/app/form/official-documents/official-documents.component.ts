@@ -103,6 +103,19 @@ export class OfficialDocumentsComponent implements OnInit {
     }
   }
 
+  clearFile(controlName: string): void {
+    const control = this.documentsForm.get(controlName);
+    if (!control) return;
+    control.reset(null);
+
+    const previewKey = this.mapControlToPreview(controlName);
+    if (previewKey) {
+      const previewTarget = (this as any)[previewKey] as FilePreview;
+      previewTarget.file = null;
+      previewTarget.url = null;
+    }
+  }
+
   onSubmit(): void {
     if (this.documentsForm.invalid) {
       this.documentsForm.markAllAsTouched();

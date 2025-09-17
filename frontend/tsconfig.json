@@ -18,7 +18,9 @@
       "tslib": [
         "tslib/tslib.d.ts"
       ]
-    }
+    },
+    "baseUrl": "./",
+    "skipLibCheck": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
