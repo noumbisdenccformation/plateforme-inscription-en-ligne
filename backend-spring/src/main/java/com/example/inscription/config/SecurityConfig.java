@@ -14,6 +14,8 @@ import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.example.inscription.security.JwtAuthFilter;
 
 import javax.crypto.SecretKey;
 import jakarta.servlet.ServletException;
@@ -35,13 +37,14 @@ public class SecurityConfig {
 	private String frontendUrl;
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
 		http
 			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/api/admin/**").authenticated()
+				.requestMatchers("/api/admin/**", "/api/dossiers/**").authenticated()
 				.anyRequest().permitAll()
 			)
+			.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 			.oauth2Login(oauth -> oauth
 				.userInfoEndpoint(userInfo -> userInfo.oidcUserService(new OidcUserService()))
 				.successHandler(oauth2SuccessHandler())
