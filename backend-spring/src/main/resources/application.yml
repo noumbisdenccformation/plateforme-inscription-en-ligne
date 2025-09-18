@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:}
+            client-secret: ${GOOGLE_CLIENT_SECRET:}
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          google:
+            issuer-uri: https://accounts.google.com
+
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET:change_this_secret}
+  frontend:
+    url: ${APP_FRONTEND_URL:http://localhost:4200} 
